@@ -1,0 +1,33 @@
+{
+  "name": "partituras",
+  "private": true,
+  "devDependencies": {
+    "@types/cote": "~0.19.0",
+    "@types/jest": "~25.2.1",
+    "@types/node": "~13.13.4",
+    "concurrently": "~5.2.0",
+    "dotenv": "~8.2.0",
+    "husky": "~4.2.5",
+    "lerna": "~3.20.2",
+    "nodemon": "~2.0.3",
+    "tslint": "~6.1.2",
+    "typescript": "~3.8.3"
+  },
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "start": "lerna run start --scope @partituras/* --stream --concurrency 10",
+    "start:infrastructure": "docker-compose -f docker-compose.dev.yml up --remove-orphans",
+    "build": "lerna run build --stream",
+    "clean": "lerna run clean"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "version": "1.0.0",
+  "description": "Partituras monorepo",
+  "author": "Flammenmensch <maleventum@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "cote": "~1.0.0"
+  }
+}

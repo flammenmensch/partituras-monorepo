@@ -1,0 +1,35 @@
+FROM node:lts-alpine
+
+# set working directory
+WORKDIR /usr/src/app
+
+# instal lerna globally
+RUN npm i lerna -g --loglevel notice
+
+# copy root project files
+COPY package.json tsconfig.json lerna.json yarn.lock ./
+
+# install common dependencies
+RUN yarn --production=false
+
+# copy main package
+COPY packages/graphql ./packages/graphql
+
+# copy dependencies
+COPY packages/events ./packages/events
+COPY packages/schemas ./packages/schemas
+
+# bootstrap lerna
+RUN lerna bootstrap
+
+# build all packages
+RUN lerna run build
+
+# remove development packages
+RUN yarn --production=true
+
+# remove source code
+RUN rm -rf yarn.lock tsconfig.json ./packages/*/tsconfig.json ./packages/*/src
+
+# run service
+CMD [ "node", "packages/graphql/build/index.js" ]

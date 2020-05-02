@@ -1,0 +1,18 @@
+{
+  "name": "@partituras/graphql",
+  "version": "1.0.0",
+  "description": "GraphQL server for Partituras project",
+  "main": "build/index.js",
+  "author": "Flammenmensch<maleventum@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "apollo-server": "~2.11.0",
+    "graphql": "~14.6.0"
+  },
+  "scripts": {
+    "start": "concurrently \"tsc -w\" \"nodemon build/index.js\"",
+    "build": "tsc",
+    "clean": "rm -rf ./build"
+  }
+}

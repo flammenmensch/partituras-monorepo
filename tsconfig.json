@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "target": "es6",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "declaration": true,
+    "baseUrl": "./packages",
+    "paths": {
+      "@partituras/db": ["db/src"],
+      "@partituras/events": ["events/src"],
+      "@partituras/graphql": ["graphql/src"],
+      "@partituras/pdf": ["pdf/src"],
+      "@partituras/schemas": ["schemas/src"]
+    }
+  },
+  "lib": [
+    "es2015"
+  ],
+  "exclude": [
+    "node_modules",
+    "build"
+  ]
+}

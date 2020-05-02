@@ -1,0 +1,23 @@
+{
+  "name": "@partituras/pdf",
+  "version": "1.0.0",
+  "description": "PDF service for Partituras project",
+  "main": "build/index.js",
+  "author": "Flammenmensch<maleventum@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "axios": "~0.19.2",
+    "pdfkit": "~0.11.0",
+    "sharp": "~0.25.2"
+  },
+  "scripts": {
+    "start": "concurrently \"tsc -w\" \"nodemon build/index.js\"",
+    "build": "tsc",
+    "clean": "rm -rf ./build"
+  },
+  "devDependencies": {
+    "@types/pdfkit": "~0.10.5",
+    "@types/sharp": "~0.24.0"
+  }
+}

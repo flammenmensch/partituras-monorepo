@@ -1,0 +1,81 @@
+version: '3'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.1
+    restart: on-failure
+    env_file:
+      - .env.development.local
+    environment:
+      xpack.security.enabled: 'false'
+      discovery.type: single-node
+    volumes:
+      - ./.data/elasticsearch:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - backend
+
+  envoy:
+    image: envoyproxy/envoy-alpine:v1.14.1
+    restart: on-failure
+    command: [
+      "--config-path /etc/envoy/envoy.yaml",
+      "--service-cluster partituras-envoy-dev"
+    ]
+    env_file:
+      - .env.development.local
+    volumes:
+      - ./infrastructure/envoy/envoy.yaml:/etc/envoy/envoy.yaml:ro
+    ports:
+      - 80:80
+      - 443:443
+      - 9901:9901
+    networks:
+      - frontend
+      - backend
+
+  mongo:
+    image: mongo
+    restart: on-failure
+    command: [--auth]
+    ports:
+      - '27017-27019:27017-27019'
+    env_file:
+      - .env.development.local
+    volumes:
+      - ./.data/mongo:/data/db
+    networks:
+      - backend
+
+  mongo-express:
+    image: mongo-express
+    restart: on-failure
+    ports:
+      - 8081:8081
+    env_file:
+      - .env.development.local
+    depends_on:
+      - mongo
+    networks:
+      - backend
+
+  minio:
+    image: minio/minio
+    restart: on-failure
+    ports:
+      - 9001:9000
+    env_file:
+      - .env.development.local
+    volumes:
+      - ./.data/minio/data1:/data1
+      - ./.data/minio/data2:/data2
+    networks:
+      - backend
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge

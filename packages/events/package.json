@@ -1,0 +1,14 @@
+{
+  "name": "@partituras/events",
+  "version": "1.0.0",
+  "description": "Event types",
+  "main": "build/index.js",
+  "files": [ "build" ],
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "tsc -w",
+    "build": "tsc",
+    "clean": "rm -rf ./build"
+  }
+}

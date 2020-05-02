@@ -1,0 +1,9 @@
+.git/
+.idea/
+.data/
+
+node_modules/
+
+packages/**/node_modules
+
+*.log
